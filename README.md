@@ -12,7 +12,7 @@ pip install ckenchanter
 
 ## Client side configuration
 
-To begin you'll need to add the following lines to your CKEditor `config.json` file. Update the values to reflect your app settings.
+To begin you'll need to add the following lines to your CKEditor `config.js` file. Update the values to reflect your app settings.
 ```JavaScript
 config.scayt_autoStartup = true;
 config.scayt_servicePath = '/spellcheck/';
