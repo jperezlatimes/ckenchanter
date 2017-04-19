@@ -13,7 +13,6 @@ pip install ckenchanter
 ## Client side configuration
 
 To begin you'll need to add the following lines to your CKEditor `config.json` file. Update the values to reflect your app settings.
-
 ```JavaScript
 config.scayt_autoStartup = true;
 config.scayt_servicePath = '/spellcheck/';
@@ -22,7 +21,9 @@ config.scayt_servicePort = '8005';
 config.scayt_serviceProtocol = 'http';
 ```
 
-The `config.scayt_servicePath` endpoint should submit the request data to a CKEnchanter object and return it's response. Here is an example Flask route:
+This can also be done when CKEditor is initialized in your app through the global `CKEDITOR` object.
+
+The `config.scayt_servicePath` endpoint should submit the request data to a CKEnchanter object and return it's response. Here is an example [Flask](http://flask.pocoo.org/) route:
 
 
 ## Usage on server
@@ -41,7 +42,7 @@ def spellcheck():
     return jsonify(response)
 ```
 
-By default CKEnchanter uses PyEnchant's 'en_US' dictionary. If you wish to use a Personal Word List that is compatible with PyEnchant, you can give CKEnchanter the path to the text file as an argument. CKEnchanter will be expanded to use different language dictionaries in the future.
+CKEnchanter accepts all arguments supported by PyEnchant's [SpellChecker class](https://github.com/rfk/pyenchant/blob/master/enchant/checker/__init__.py). It has an additional named arg `wl_path` that accepts the absolute path of a custom word list (.txt file) for CKEnchanter to use in addition to the default dictionary.
 
 ```Python
 import os
@@ -55,7 +56,7 @@ def spellcheck():
     file_dir = os.path.dirname(__file__)
     word_list_path = os.path.join(file_dir, "dicts/mywords.txt")
 
-    cke = CKEnchanter(word_list_path)
+    cke = CKEnchanter(wl_path=word_list_path)
     response = cke.parse_ckeditor_request(request.data)
     return jsonify(response)
 ```
