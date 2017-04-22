@@ -12,7 +12,7 @@ class CKEnchanter(SpellChecker):
         """
 
         # Make sure the desired default dictionary exists
-        # if if it doesn't, default to US English
+        # if it doesn't, get the default language
         if lang is None:
             lang = get_default_language()
 
@@ -27,7 +27,7 @@ class CKEnchanter(SpellChecker):
 
     def _get_data_val(self, data, key):
         """
-        Get a key out of the data string
+        Get a key out of the ckeditor's data string
         """
         val = data.get(key, [])
         if len(val) > 0:
@@ -56,7 +56,7 @@ class CKEnchanter(SpellChecker):
                 "verLang": 6
             }
         elif self._get_data_val(data, 'cmd') == 'check_spelling':
-            # Ok, now we're actually checking the words
+            # Ok, now we're actually checking the text
             text = urllib.unquote(self._get_data_val(data, 'text')).replace(',', ' ')
             return self.spellcheck(text)
 
