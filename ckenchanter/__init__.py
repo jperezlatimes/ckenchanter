@@ -40,11 +40,12 @@ class CKEnchanter(SpellChecker):
         """
         # Break apart the query string
         data = urlparse.parse_qs(request_data)
+        cmd = self._get_data_val(data, 'cmd')
 
-        if self._get_data_val(data, 'cmd') == 'getbanner':
+        if cmd == 'getbanner':
             # CKEditor banner response
             return {"banner": True}
-        elif self._get_data_val(data, 'cmd') == 'get_lang_list':
+        elif cmd == 'get_lang_list' or cmd == 'get_info':
             # CKEditor langList response
             return {
                 "langList": {
